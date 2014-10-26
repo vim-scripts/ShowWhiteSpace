@@ -1,0 +1,5 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=5043
+
+This script is influenced by a question on stackoverflow on how to display space characters in a window. By default it uses the · character for a space.
+
+Use the :ShowWhiteToggle command to toggle display of spaces in the current window. Alternatively you can use the normal mode mapping '\ws'
