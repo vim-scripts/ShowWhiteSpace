@@ -1,23 +1,24 @@
 *ShowWhitespace.txt*   A Plugin for displaying Whitespace
 
 Author:  Christian Brabandt <cb@256bit.org>
-Version: 0.1 Thu, 27 Mar 2014 23:16:27 +0100
+Version: 0.2 Tue, 21 Apr 2015 20:16:24 +0200
 Copyright: (c) 2009-2014 by Christian Brabandt
-           The VIM LICENSE applies to ShowWhitespacePlugin.vim and ShowWhitespacePlugin.txt
-           (see |copyright|) except use ShowWhitespacePlugin instead of "Vim".
+           The VIM LICENSE applies to ShowWhitespacePlugin.vim and
+           ShowWhitespacePlugin.txt (see |copyright|) except use
+           ShowWhitespacePlugin instead of "Vim".
            NO WARRANTY, EXPRESS OR IMPLIED.  USE AT-YOUR-OWN-RISK.
 
 ==============================================================================
-1. Contents                                                      *ShowWhitespacePlugin*
+1. Contents                                               *ShowWhitespacePlugin*
 
-        1.  Contents............................................: |ShowWhitespacePlugin|
-        2.  ShowWhitespace Manual...............................: |ShowWhitespace-manual|
-        2.1 ShowWhitespace configuration........................: |ShowWhitespace-config|
-        3.  ShowWhitespace Feedback.............................: |ShowWhitespace-feedback|
-        4.  ShowWhitespace History..............................: |ShowWhitespace-history|
+    1.  Contents.......................................: |ShowWhitespacePlugin|
+    2.  ShowWhitespace Manual..........................: |ShowWhitespace-manual|
+    2.1 ShowWhitespace configuration...................: |ShowWhitespace-config|
+    3.  ShowWhitespace Feedback........................: |ShowWhitespace-feedback|
+    4.  ShowWhitespace History.........................: |ShowWhitespace-history|
 
 ==============================================================================
-2. ShowWhitespace Manual                                       *ShowWhitespace-manual*
+2. ShowWhitespace Manual                                  *ShowWhitespace-manual*
 
 Functionality
 
@@ -26,6 +27,17 @@ WhiteSpace so that it is easily recognizable
 (http://stackoverflow.com/questions/1675688). This plugin aims to make that
 easily possible. It not configured otherwise, Spaces will be displayed using
 the '·' character.
+
+Note, it is possible, that not all spaces will be highlighted correctly. This
+seems to be - well - a particularity of the syntax highlighting used by Vim,
+that it skips syntax regions which have the skipwhite (|syn-skipwhite|) flag
+set. I posted a patch to fix this, so this might be fixed in the future.
+But until then, there is nothing this plugin can do to fix this.
+The patch is available at:
+https://groups.google.com/d/msg/vim_dev/sSkuUhSDX6o/fEWBkaseeoUJ
+
+Note: Starting from Vim 7.4.711 a different patch has been included that makes
+use of the 'listchars' option to display whitespace characters.
 
                                                         *:ShowWhiteToggle*
 :ShowWhiteToggle  Toggle displaying Whitespace (highlights only Spaces, no 
@@ -77,13 +89,38 @@ Alternatively, you can define the variable g:showwhite_highlighting like this
 This interally modifies the Conceal highlighting, so it can have an influence
 on normal syntax highlighting rules.
 
+Note: Since starting from Vim 7.4.711 Vim supports highlighting whitespaces using
+the 'listchars' option, this option is not supported anymore
+
 (default: Conceal)
+------------------------------------------------------------------------------
+
+If the default Conceal highlighting is too disturbing for the plugin can also
+link the Conceal highlighting group to the Normal (|hl-Normal|) or any other
+highlighting group you define.
+
+To do so, set the g:showwhite_highlighting_link variable like this
+(e.g. in your |.vimrc|): >
+
+    :let g:showwhite_highlighting_link = 'Normal'
+<
+Note: This only works, if the g:showwhite_highlighting variable is not set.
+
+If you do not want this, set the variable to the empty string like this (e.g.
+in your |.vimrc|): >
+
+    :let g:showwhite_highlighting_link = ''
+
+Note: Since starting from Vim 7.4.711 Vim supports highlighting whitespaces using
+the 'listchars' option, this option is not supported anymore
+
+(default: Normal)
 =============================================================================
 3. ShowWhitespace Feedback                            *ShowWhitespace-feedback*
 
 Feedback is always welcome. If you like the plugin, please rate it at the
 vim-page:
-http://www.vim.org/scripts/script.php?script_id=
+http://www.vim.org/scripts/script.php?script_id=5043
 
 You can also follow the development of the plugin at github:
 http://github.com/chrisbra/ShowWhitespace
@@ -97,6 +134,14 @@ looking at my Amazon whishlist: http://www.amazon.de/wishlist/2BKAHE8J7Z6UW
 
 =============================================================================
 4. ShowWhitespace History                              *ShowWhitespace-history*
+
+0.2: Apr 21, 2015 {{{1
+- Make sure highlighting group exists (issue
+  https://github.com/chrisbra/vim-show-whitespace/issues/1, reported by
+  feroxium, thanks!)
+- Link Conceal highlighting to Normal group
+- Support Vim 7.4.711 (includes a native fix for whitespace highlighting using
+  the 'listchars' option)
 
 0.1: Oct 26, 2014 {{{1
 
